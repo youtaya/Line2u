@@ -1,4 +1,4 @@
 Line2u
 ======
 
-intimacy connected to each with
+scrapy application to retrieve dictionary from oxford dictionary website.

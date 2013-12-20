@@ -14,5 +14,5 @@ class TutorialPipeline(object):
         log.msg("jinxp item is %s, spider is %s" % (item, spider), level=log.DEBUG)
 
         if item['word']:
-            self.file.write(str(item['word'].encode("utf-8").strip(" -"))+ '\n')
+            self.file.write(str(item['word'].encode("utf-8").strip(" -").replace(",", "").lower())+ '\n')
         return item
