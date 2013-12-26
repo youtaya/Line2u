@@ -10,3 +10,9 @@ class OxfordItem(Item):
     # name = Field()
     link = Field()
     word = Field()
+
+class DoubanItem(Item):
+    # define the fields for your item here like:
+    # name = Field()
+    link = Field()
+    photo = Field()
