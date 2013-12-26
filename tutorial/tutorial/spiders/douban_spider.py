@@ -9,28 +9,31 @@ class DoubanSpider(BaseSpider):
     name="douban"
     allowed_domains = ["douban.com"]
     start_urls = [
-            "http://www.douban.com/group/haixiuzu/?ref=sidebar",
+            "http://www.douban.com/group/haixiuzu/discussion?start=0",
             ]
 
     def parse(self, response):
-        sel = Selector(response)
+        response_selector = Selector(response)
+        next_link = response_selector.select(u'//div[@class="group-topics-more"]/a/@herf').extract()
+        log.msg("jinxp next link is %s" % next_link, level=log.DEBUG)
+        if next_link:
+            next_link = clean_url(response.url,next_link,response.encoding)
+            yield Request(url=next_link, callback=self.parse)
 
-        for detail_link in sel.xpath('//div[@class="group-topics-more"]/a/@herf').extract():
+        for detail_link in response_selector.select(u'//table[@class="olt"]/tr[@class=""]/td[@class="title"]/a/@href').extract():
             if detail_link:
                 detail_link = clean_url(response.url,detail_link,response.encoding)
-
-                yield Request(url=detail_link, callback=self.parse_detail)
+                yield Request(url=detail_link, callback=self.parse_detail)                
 
     def parse_detail(self,response):
         sel = Selector(response)
         items = []
-        sites = sel.xpath('//ul[@class="browseResultList"]/li')
-        for site in sites:
-            photos = site.xpath('a/span[@class="alpha_title alpha_hw"]/text()').extract()
-            log.msg("jinxp words :%s" %photos,level=log.DEBUG)
-            for photo in photos:
-                item = DoubanItem()
-                item['photo'] = photo
-                items.append(item)
-
+        log.msg("jinxp parse detail url is %s" % response.url, level=log.DEBUG)
+        #desc = sel.xpath('//div[@id="link-report"]/div[@class="topic-content"]/p/text()').extract();
+        photos = sel.xpath('//div[@class="topic-content"]/div[@class="topic-figure cc"]/img/@src').extract()
+        for photo in photos:           
+            item = DoubanItem()
+            item['photo'] = photo
+            items.append(item)
+            
         return items

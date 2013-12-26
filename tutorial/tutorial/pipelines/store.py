@@ -16,3 +16,15 @@ class TutorialPipeline(object):
         if item['word']:
             self.file.write(str(item['word'].encode("utf-8").strip(" -").replace(",", "").lower())+ '\n')
         return item
+
+class DoubanPipeline(object):
+
+    def __init__(self):
+        self.file = open('photo_rec.txt' , 'w')
+
+    def process_item(self, item, spider):
+        log.msg("jinxp item is %s, spider is %s" % (item, spider), level=log.DEBUG)
+
+        if item['photo']:
+            self.file.write(str(item['photo'].encode("utf-8"))+ '\n')
+        return item

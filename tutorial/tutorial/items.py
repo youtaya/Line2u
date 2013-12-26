@@ -15,4 +15,5 @@ class DoubanItem(Item):
     # define the fields for your item here like:
     # name = Field()
     link = Field()
+    desc = Field()
     photo = Field()
