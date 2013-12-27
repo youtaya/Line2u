@@ -1,4 +1,6 @@
 Line2u
 ======
 
-scrapy application to retrieve dictionary from oxford dictionary website.
+scrapy applications:
+1. retrieve dictionary from oxford dictionary website.
+2. retrieve photos in douban group.
