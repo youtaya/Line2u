@@ -26,4 +26,8 @@ class DoubanImage(ImagesPipeline):
                 if not ok:
                     log.err(value, msg, spider=info.spider)
 
+        image_paths = [x['path'] for ok, x in results if ok]
+        image_path = image_paths[0]
+        item['desc'] = os.path.join(os.path.abspath(self.images_store),image_path) if image_path else ""
+
         return item

@@ -5,6 +5,8 @@
 #
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
+import os
+PROJ_DIR = os.path.abspath(os.path.dirname(__file__))
 
 BOT_NAME = 'tutorial'
 
@@ -17,3 +19,5 @@ NEWSPIDER_MODULE = 'tutorial.spiders'
 #ITEM_PIPELINES = ['tutorial.pipelines.TutorialPipeline']
 ITEM_PIPELINES = ['tutorial.pipelines.store.DoubanPipeline',
 				'tutorial.pipelines.photo_url.DoubanImage']
+
+IMAGES_STORE = os.path.join(PROJ_DIR,'media/photo_image')
