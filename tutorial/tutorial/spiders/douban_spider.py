@@ -14,7 +14,7 @@ class DoubanSpider(BaseSpider):
 
     def parse(self, response):
         response_selector = Selector(response)
-        next_link = response_selector.select(u'//div[@class="group-topics-more"]/a/@herf').extract()
+        next_link = response_selector.select(u'//span[@class="next"]/a/@href').extract()[0]
         log.msg("jinxp next link is %s" % next_link, level=log.DEBUG)
         if next_link:
             next_link = clean_url(response.url,next_link,response.encoding)
