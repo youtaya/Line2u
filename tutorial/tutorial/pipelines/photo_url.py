@@ -17,7 +17,8 @@ class DoubanImage(ImagesPipeline):
 
     def get_media_requests(self, item, info):
         if item.get('photo'):
-            yield Request(item['photo'])
+            for url in item['photo']:
+                yield Request(url['url'])
 
     def item_completed(self, results, item, info):
         if self.LOG_FAILED_RESULTS:

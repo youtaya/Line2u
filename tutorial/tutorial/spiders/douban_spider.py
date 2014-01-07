@@ -27,13 +27,17 @@ class DoubanSpider(BaseSpider):
 
     def parse_detail(self,response):
         sel = Selector(response)
-        items = []
+        item = DoubanItem()
+ 
         log.msg("jinxp parse detail url is %s" % response.url, level=log.DEBUG)
-        #desc = sel.xpath('//div[@id="link-report"]/div[@class="topic-content"]/p/text()').extract();
+        name = sel.xpath('//div[@id="content"]/h1/text()').extract();
         photos = sel.xpath('//div[@class="topic-content"]/div[@class="topic-figure cc"]/img/@src').extract()
+        download = []
         for photo in photos:           
-            item = DoubanItem()
-            item['photo'] = photo
-            items.append(item)
-            
-        return items
+            download_item = {}
+            download_item['url'] = photo
+            download.append(download_item)
+        item['name'] = name[0]
+        item['photo'] = download
+
+        return item

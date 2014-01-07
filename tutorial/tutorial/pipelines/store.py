@@ -25,6 +25,6 @@ class DoubanPipeline(object):
     def process_item(self, item, spider):
         log.msg("jinxp item is %s, spider is %s" % (item, spider), level=log.DEBUG)
 
-        if item['photo']:
-            self.file.write(str(item['photo'].encode("utf-8"))+ '\n')
+        if item['name']:
+            self.file.write(str(item['name'].encode("utf-8"))+ '\n')
         return item
