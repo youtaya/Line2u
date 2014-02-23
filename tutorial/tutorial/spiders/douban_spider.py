@@ -30,14 +30,16 @@ class DoubanSpider(BaseSpider):
         item = DoubanItem()
  
         log.msg("jinxp parse detail url is %s" % response.url, level=log.DEBUG)
-        name = sel.xpath('//div[@id="content"]/h1/text()').extract();
+        titleBar = sel.xpath('//div[@id="content"]/h1/text()').extract()
+        contentAuthor = sel.xpath('//div[@class="topic-doc"]/h3/span[@class="from"]/a/text()').extract()
         photos = sel.xpath('//div[@class="topic-content"]/div[@class="topic-figure cc"]/img/@src').extract()
         download = []
         for photo in photos:           
             download_item = {}
             download_item['url'] = photo
             download.append(download_item)
-        item['name'] = name[0]
+        item['titleName'] = titleBar[0]
+        item['nickName'] = contentAuthor[0]
         item['photo'] = download
 
         return item

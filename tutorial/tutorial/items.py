@@ -13,8 +13,8 @@ class OxfordItem(Item):
 
 class DoubanItem(Item):
     # define the fields for your item here like:
-    # name = Field()
+    nickName = Field()
     link = Field()
-    name = Field()
+    titleName = Field()
     desc = Field()
     photo = Field()
