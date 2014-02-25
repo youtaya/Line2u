@@ -26,10 +26,10 @@ class DoubanPipeline(object):
         log.msg("jinxp item is %s, spider is %s" % (item, spider), level=log.DEBUG)
 
         if item['nickName']:
-            self.file.write(str(item['nickName'].encode("utf-8"))+ '\n')  
+            self.file.write(str(item['nickName'].encode("utf-8")).strip()+ '\t')
 
         if item['titleName']:
-            self.file.write(str(item['titleName'].encode("utf-8"))+ '\n')
+            self.file.write(str(item['titleName'].encode("utf-8")).strip()+ '\n')
 
           
         return item
